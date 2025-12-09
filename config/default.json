@@ -480,6 +480,67 @@
 //          "type": "staticMap",
 //          "includeStops": true
 //        }
+        // _theme - theme selector for tileserver templates
+        // Generates URLs like /staticmap/poracle-THEME-monster.json
+        // Theme combines general theme (e.g., "holiday") with time of day (e.g., "night") -> "holiday-night"
+//      , "_theme": {
+//          "general": {
+//            "default": "normal",      // default theme when no time range matches
+//            "times": [                 // array of time ranges with unix timestamps
+//              {
+//                "start": 1764460800,   // Dec 1, 2025
+//                "end": 1767484800,     // Jan 3, 2026
+//                "name": "holiday"
+//              },
+//              {
+//                "start": 1759795200,   // Oct 7, 2025
+//                "end": 1762041600,     // Nov 2, 2025
+//                "name": "halloween"
+//              }
+//            ]
+//          },
+//          "timeOfDay": {
+//            "mode": "static",          // "static" uses fixed times, "dynamic" uses sunrise-sunset API
+//            "times": [
+//              {
+//                "start": "05:00",
+//                "end": "07:00",
+//                "name": "dawn"
+//              },
+//              {
+//                "start": "07:00",
+//                "end": "17:00",
+//                "name": "day"
+//              },
+//              {
+//                "start": "17:00",
+//                "end": "18:30",
+//                "name": "dusk"
+//              },
+//              {
+//                "start": "18:30",
+//                "end": "05:00",
+//                "name": "night"
+//              }
+//            ]
+//          }
+//          // Alternative: dynamic time of day based on sunrise/sunset API
+//          // "_timeOfDay": {
+//          //   "mode": "dynamic",
+//          //   "location": {
+//          //     "lat": 36.7201600,
+//          //     "lon": -4.4203400
+//          //   },
+//          //   "dawn": {
+//          //     "minutesBeforeSunrise": 30,
+//          //     "minutesAfterSunrise": 0
+//          //   },
+//          //   "dusk": {
+//          //     "minutesBeforeSunset": 15,
+//          //     "minutesAfterSunset": 30
+//          //   }
+//          // }
+//        }
       },
     // geocodingKey - google keys for geolocation - can be more than one in this array and poracle will cycle
       "geocodingKey":[""],

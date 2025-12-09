@@ -1,10 +1,12 @@
 const axios = require('axios')
+const ThemeSelector = require('./themeSelector')
 
 class TileserverPregen {
 	constructor(config, log) {
 		this.axios = axios
 		this.log = log
 		this.config = config
+		this.themeSelector = new ThemeSelector(config, log)
 	}
 
 	getConfigForTileType(maptype) {
@@ -42,7 +44,9 @@ class TileserverPregen {
 			mapType = 'multistaticmap'
 			templateType = 'multi-'
 		}
-		const url = `${this.config.geocoding.staticProviderURL}/${mapType}/poracle-${templateType}${type}?pregenerate=true&regeneratable=true`
+		const theme = await this.themeSelector.getCurrentTheme()
+		const themeSegment = theme ? `${theme}-` : ''
+		const url = `${this.config.geocoding.staticProviderURL}/${mapType}/poracle-${themeSegment}${templateType}${type}?pregenerate=true&regeneratable=true`
 		try {
 			this.log.debug(`${logReference}: Pre-generating static map ${url}`)
 			const hrstart = process.hrtime()
@@ -91,7 +95,9 @@ class TileserverPregen {
 			mapType = 'multistaticmap'
 			templateType = 'multi-'
 		}
-		const url = new URL(`${mapType}/poracle-${templateType}${type}`, this.config.geocoding.staticProviderURL)
+		const theme = await this.themeSelector.getCurrentTheme()
+		const themeSegment = theme ? `${theme}-` : ''
+		const url = new URL(`${mapType}/poracle-${themeSegment}${templateType}${type}`, this.config.geocoding.staticProviderURL)
 		Object.keys(data).forEach((item) => {
 			url.searchParams.set(item, data[item])
 		})
